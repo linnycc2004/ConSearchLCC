@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ConSearch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+
+    <h1 style="text-align: center;">ConSearch</h1>
+
+    <!-- Artist Select Box -->
+    <form id="artist-form">
+
+        <!-- Lable for Text Box -->
+        <label for="artist-input">Choose Your Artist</label>
+
+        <!-- Text Input Box -->
+        <input type="text" id="artist-input"><br>
+
+        <!-- Submit Button -->
+        <input id="select-artist" type="submit" value="GO!">
+
+
+    </form>
+
+    <!-- Artist Information -->
+    <div id="artist-div"></div>
+
+</body>
+
+    <script
+    src="http://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+
+    <script>
+    
+    function searchBandsInTown(artist)
+    {
+        // Querying the bands in town API dor the selected artist, the app ID perameter is required but can equal anything
+        var queryURL = "https://rest.bandsintwon.com/artists/" + artist + 
+                        "?app_id=codingbootcamp";
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+
+        }).done(function(response) {
+
+            // Printing the entire object to the console
+            console.log(response);
+
+            // Constructing HTML containing the artist information
+            
+        })
+    }
+
+    </script>
+
+</html>
