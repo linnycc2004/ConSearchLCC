@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ConSearch</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
 </head>
-<body>
-
+<body style="background-image: url(https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiLxYLPkqviAhVos1kKHZt6ApwQjRx6BAgBEAU&url=%2Furl%3Fsa%3Di%26source%3Dimages%26cd%3D%26ved%3D%26url%3Dhttps%253A%252F%252Fwww.npr.org%252Fsections%252Ftherecord%252F2015%252F06%252F04%252F411963624%252Fwhy-cant-streaming-services-get-classical-music-right%26psig%3DAOvVaw05gtBDW571q6f9k4aRd6p2%26ust%3D1558477221241573&psig=AOvVaw05gtBDW571q6f9k4aRd6p2&ust=1558477221241573);">
+    
     <h1 style="text-align: center;">ConSearch</h1>
 
     <!-- Artist Select Box -->
     <form id="artist-form">
 
-        <!-- Lable for Text Box -->
-        <label for="artist-input">Choose Your Artist</label>
+        <!-- Label for Text Box -->
+        <label style="text-align: center;" for="artist-input">Choose Your Artist</label>
 
         <!-- Text Input Box -->
         <input type="text" id="artist-input"><br>
 
         <!-- Submit Button -->
         <input id="select-artist" type="submit" value="GO!">
-
 
     </form>
 
@@ -32,56 +29,60 @@
 
 </body>
 
-    <script
-    src="http://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
 
-    <script>
+<script>
     
     function searchBandsInTown(artist)
     {
-        // Querying the bands in town API dor the selected artist, the app ID perameter is required but can equal anything
-        var queryURL = "https://rest.bandsintwon.com/artists/" + artist + 
+        // Querying the bandsintown api for the selected artist, the 
+        // ?app_id parameter is required, but can equal anything
+        var queryURL = "https://rest.bandsintown.com/artists/" + artist +
                         "?app_id=codingbootcamp";
         $.ajax({
+
             url: queryURL,
             method: "GET"
 
         }).done(function(response) {
 
-            // Printing the entire object to the console
+            // Printing the entire object to console
             console.log(response);
 
             // Constructing HTML containing the artist information
             var artistName = $("<h1>").text(response.name);
-            var artistURL = $("<a>").attr("href", response.url).append(artistName);
+            var artistUrl = $("<a>").attr("href", response.url).append(artistName);
             var artistImage = $("<img>").attr("src", response.thumb_url);
-            var trackerCount = $("<h2>").text(response.tracker_count + "fans tracking this artist");
-            var upcomeingEvents = $("<h2>").text(response.upcoming_event_count + "upcoming events");
+            var trackerCount = $("<h2>").text(response.tracker_count +
+                                " fans tracking this artist");
+            var upcomingEvents = $("<h2>").text(response.upcoming_event_count +
+                                 " upcoming events");
             var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
 
             // Empty the contents of the artist-div, append the new artist content
             $("#artist-div").empty();
-            $("#artist-div").append(artistURL, artistImage, trackerCount, upcomeingEvents, goToArtist);
-            
-        })
+            $("#artist-div").append(artistUrl, artistImage, trackerCount, upcomingEvents, goToArtist);
+      
+        });
     }
 
-    // Event handler for user clicking the select artist button
+    // Event handler for user clicking the select-artist button
     $("#select-artist").on("click", function(event) {
 
         // Preventing the button from trying to submit the form
         event.preventDefault();
 
-        // Starting the artist name
+        // Storing the artist name
         var artist = $("#artist-input").val().trim();
 
-        // Running the searchBandInTown function (passing in the artist as an argument)\
+        // Running the searchBandsInTown function (passing in the artist as an argument)
         searchBandsInTown(artist);
 
-    })
+    });
 
-    </script>
+</script>
 
 </html>
